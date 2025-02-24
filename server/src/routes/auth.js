@@ -75,6 +75,35 @@ router.get('/profile/admin', authMiddleware, async (req, res) => {
 	res.status(200).json({ login: req.user.userId })
 })
 
+router.put('/forgot-password',async(req,res)=>{
+  const {email}=req.body
+  const user =await UserModel.findOne({email})
+  if(!user)return res.status(404).json({message:'user not found'})
+  const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+  user.resetCode = resetCode
+  await user.save()
+  await transporter.sendMail({
+		to: email,
+		subject: 'Email Verification',
+		html: `Հապա մի կոդն ասա : <b style='color:yellow'>${resetCode}</b>`,
+	})
+  res.status(200).json({message:'check your email'})
+})
+
+router.put('/forgot-password-check', async (req, res) => {
+	const { email, resetCode,newPassword } = req.body
+	const user = await UserModel.findOne({ email })
+	if (!user) return res.status(404).json({ message: 'user not found' })
+	if (user.resetCode !== resetCode) {
+		res.status(404).json({ message: 'user not found' })
+	}
+	const hashedPassword = await bcrypt.hash(newPassword, 10)
+	user.password = hashedPassword
+	user.resetCode = null
+	await user.save()
+	res.status(200).json({ message: 'success' })
+})
+
 router.get('/profile', authMiddleware, async (req, res) => {
   const user = await UserModel.findById(req.user.userId);
   res.json({ email: user.email, name: user.name, isVerified: user.isVerified });

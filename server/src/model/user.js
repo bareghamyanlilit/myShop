@@ -8,6 +8,7 @@ const userSchema = new Schema({
 	role: { type: String, default: 'client' },
 	basket:{type:Array},
 	verificationCode: String,
+	resetCode:String
 })
 
 const UserModel = mongoose.model('user', userSchema)
