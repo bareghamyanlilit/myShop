@@ -1,0 +1,122 @@
+1. Դինամիկ անջատում գրանցման և մուտքի միջև
+Կեռիկը useStateկառավարում է, թե արդյոք ձևը կցուցադրվի որպես Գրանցվել կամ մուտք գործել .
+
+javascript
+
+Պատճենել կոդը
+const [isSignUp, setIsSignUp] = useState(true);
+isSignUpԲուլյան արժեք ( trueSign-Up, falseLog-In-ի համար):
+Կոճակը փոխում է SwitchFormայս վիճակը.
+javascript
+
+Պատճենել կոդը
+<button type="button" onClick={() => setIsSignUp(!isSignUp)}>
+    {isSignUp ? 'Log In' : 'Sign Up'}
+</button>
+Արդյունք .
+
+Երբ isSignUpկա true, ձևը ներառում է այնպիսի դաշտեր, ինչպիսիք են Անունը և Պայմաններ և դրույթներ :
+Երբ isSignUpէ false, այն ցույց է տալիս միայն էլփոստի և գաղտնաբառի դաշտերը:
+2. Ձևաթղթերի ներկայացում
+Ձևը օգտագործվում է react-hook-formներկայացման և վավերացման համար.
+
+javascript
+
+Պատճենել կոդը
+const { register, handleSubmit, formState: { errors } } = useForm();
+registerՄիացնում է մուտքագրման դաշտերը react-hook-formարժեքներին հետևելու և վավերացման համար:
+handleSubmitԿառավարում է ձևի ներկայացման տրամաբանությունը:
+errors: Գրում է վավերացման սխալները յուրաքանչյուր մուտքագրման դաշտի համար:
+Երբ ձևը ներկայացվում է.
+
+javascript
+
+Պատճենել կոդը
+const onSubmit = data => {
+    console.log(isSignUp ? 'Sign-Up Data:' : 'Log-In Data:', data);
+};
+Եթե isSignUp​​կա true, այն գրանցում է գրանցման տվյալները :
+Եթե isSignUp​​կա false, ապա այն գրանցում է մուտքի տվյալները :
+3. Պայմանական դաշտեր
+Որոշ դաշտեր հայտնվում են միայն գրանցման ժամանակ ՝ վերահսկվող՝
+
+javascript
+
+Պատճենել կոդը
+{isSignUp && (
+    <div>
+        <Label htmlFor="name">Name:</Label>
+        <Input
+            id="name"
+            {...register('name', {
+                required: 'Name is required *',
+            })}
+        />
+        {errors.name && <Error>{errors.name.message}</Error>}
+    </div>
+)}
+Եթե isSignUp​​կա true, ապա Անուն դաշտը ցուցադրվում է: Հակառակ դեպքում այն ​​բաց է թողնվում:
+Նմանապես, ժամկետների և պայմանների վանդակը պայմանականորեն տրվում է:
+4. Վավերացում
+Յուրաքանչյուր մուտքագրում ունի վավերացման կանոններ, որոնք սահմանված են react-hook-form. Օրինակ՝
+
+Էլփոստի վավերացում .
+
+javascript
+
+Պատճենել կոդը
+{...register('email', {
+    required: 'Email is required *',
+    validate: value =>
+        validator.validate(value) || 'Invalid email address *',
+})}
+Պահանջվում է էլփոստի դաշտ:
+Օգտագործում է email-validatorփաթեթը՝ էլփոստի վավեր ձևաչափ ապահովելու համար:
+Գաղտնաբառի վավերացում .
+
+javascript
+
+Պատճենել կոդը
+{...register('password', {
+    required: 'Password is required *',
+    minLength: {
+        value: 6,
+        message: 'Password must be at least 6 characters *',
+    },
+})}
+Գաղտնաբառը պետք է լինի առնվազն 6 նիշ:
+Պայմաններ և դրույթներ (միայն գրանցվելու համար) .
+
+javascript
+
+Պատճենել կոդը
+{...register('terms', {
+    required: 'You must accept the terms and conditions',
+})}
+5. Ոճավորում
+Styd-components ( FormContainer, Input, Label, և այլն) ընդլայնում են օգտատիրոջ միջերեսը.
+
+Կենտրոնացնում FormContainerէ ձևը և ապահովում տարածություն տարրերի միջև:
+Պայմանական սխալի հաղորդագրությունները ( Error) ցուցադրվում են անվավեր դաշտերի տակ՝ ուղղորդելով օգտվողին:
+6. Օգտագործողի համար հարմար նավարկություն
+Ներքևում գտնվող անջատիչը.
+
+javascript
+
+Պատճենել կոդը
+<SwitchForm>
+    <p>
+        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+        <button type="button" onClick={() => setIsSignUp(!isSignUp)}>
+            {isSignUp ? 'Log In' : 'Sign Up'}
+        </button>
+    </p>
+</SwitchForm>
+Խրախուսում է օգտվողներին հեշտությամբ անցնել Sign-Up և Log-In ձևերի միջև:
+Դինամիկ կերպով թարմացնում է կոճակի տեքստը և օգնական հաղորդագրությունը:
+7. Հատկանիշների ամփոփում
+Գրանցվելու և մուտք գործելու ձևերը մեկ բաղադրիչով:
+Դինամիկ վարքագիծ ՝ հիմնված վիճակի վրա isSignUp:
+Դաշտի վավերացումն ապահովում է օգտագործողի ճիշտ մուտքագրումը:
+Մաքուր և արձագանքող ոճավորում՝ հարդարված բաղադրիչների միջոցով:
+Հեշտ փոխարկիչ նավարկություն՝ օգտագործողի հարմարության համար:
