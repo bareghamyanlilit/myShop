@@ -1,5 +1,3 @@
-// ✅ Ամբողջական փոփոխված React կոմպոնենտ Admin Product ավելացման և խմբագրման էջի համար
-
 import { useEffect, useState } from 'react'
 import { createProduct, deleteProduct, getProduct, updateProduct } from '../../api/api'
 import {
