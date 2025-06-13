@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import img1 from '../../assets/img/about.jpg'
+import img1 from '../../assets/img/nkary.png'
 import { globalColor } from '../../assets/colors'
 
 export const PageContainer = styled.div`
@@ -12,8 +12,8 @@ export const PageContainer = styled.div`
 `
 
 export const HeroSection = styled.section`
-	background: url(${img1}) no-repeat center center/cover;
-	height: 400px;
+	background: url(${img1}) no-repeat center center/contain;
+	height: 600px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -28,7 +28,13 @@ export const HeroTitle = styled.h1`
 	color: ${globalColor.txtColor};
 	font-size: 3rem;
 	font-family: monospace;
-	text-shadow: 0px 1px 1px #000;
+	padding: 20px;
+	border-radius: 20px;
+	text-shadow: 0px 1px 10px ${globalColor.blue};
+	box-shadow: 0px 30px 30px #020223, 30px 0px 30px #020223ef,0px -30px 30px #020223,
+			-30px 0px 30px #020223db, 30px 30px 30px #020223e2,-30px -30px 30px #020223,
+			-30px 30px 30px #020223, 30px -30px 30px #020223,0px 0px 30px #020223e2;
+	background: ${globalColor.blue};
 	@media (max-width: 480px) {
 		font-size: 2rem;
 	}

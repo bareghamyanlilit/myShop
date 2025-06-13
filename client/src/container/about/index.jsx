@@ -1,12 +1,14 @@
 // About.jsx
 import React from 'react'
 import { AboutImage, AboutImages, AboutText, Container, HeroSection, HeroTitle, PageContainer, Section, TeamMember, TeamMembers, TeamSection, TeamTitle } from './styled'
-import img1 from "../../assets/img/about.jpg"
+import img1 from "../../assets/img/nkary.png"
 export const AboutPage = () => {
   return (
 		<PageContainer>
 			<HeroSection>
-				<HeroTitle>Welcome to [My Shop ]</HeroTitle>
+				<HeroTitle>Welcome to My Shop
+					
+				</HeroTitle>
 			</HeroSection>
 			<Container>
 				<Section>

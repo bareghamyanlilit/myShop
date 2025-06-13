@@ -7,6 +7,7 @@ const userSchema = new Schema({
 	isVerified: { type: Boolean, default: false },
 	role: { type: String, default: 'client' },
 	basket:{type:Array},
+	buy:{type:Array},
 	verificationCode: String,
 	resetCode:String
 })

@@ -1,5 +1,5 @@
 import { Header, HeaderLogo, IconDiv, LeftHeader, MenuItems, MenueLink, RightHeader, ShopName } from './styled'
-import logo from '../../assets/img/logo.png'
+import logo from '../../assets//img/o.png'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -17,7 +17,7 @@ export const MyHeader=({basketCount})=>{
 		{ name: 'About', path: '/about', active: loc.pathname === '/about' ? true : false  },
 		{ name: 'Shop', path: '/shop', active: loc.pathname === '/shop' ? true : false  ,basket:true},
 		{ name: 'Basket', path: '/basket', active: loc.pathname === '/basket' ? true : false },
-		{ name: 'Account', path: '/account', active: loc.pathname === '/account' ? true : false  },
+		// { name: 'Account', path: '/account', active: loc.pathname === '/account' ? true : false  },
 		{ name: 'Sign Up', path: '/sign-up', active: loc.pathname === '/sign-up' ? true : false , show: localStorage.getItem('token') ? false : true },
 		{ name: 'Log In', path: '/log-in', active: loc.pathname === '/log-in' ? true : false , show: localStorage.getItem('token') ? false : true },
 		{ name: 'Profile', path: '/profile', active: loc.pathname === '/profile' ? true : false, show: localStorage.getItem('token') ? true : false  },
@@ -32,7 +32,7 @@ export const MyHeader=({basketCount})=>{
 			<Header>
 				<LeftHeader>
 					<HeaderLogo src={logo} />
-					<ShopName>MyShop</ShopName>
+					<ShopName>LOOK OPTIC</ShopName>
 				</LeftHeader>
 
 				<RightHeader>

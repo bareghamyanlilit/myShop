@@ -19,11 +19,15 @@ router.post('/:id', authMiddleware, async (req, res) => {
 })
 
 router.get('/', authMiddleware, async (req, res) => {
-	// console.log(res.user);
-	const user = await UserModel.findById(req.user.userId)
-	console.log(user);
-	const products = await ProductModel.find({ _id: { $in: user.basket } })
-	res.status(200).json(products)
+	try {
+		const user = await UserModel.findById(req.user.userId)
+		console.log(user);
+		const products = await ProductModel.find({ '_id': { $in: user.basket } })
+
+		res.status(200).json(products)
+	} catch (error) {
+		res.status(500).send({ error: error.message })
+	}
 })
 
 router.delete('/:id', authMiddleware, async (req, res) => {

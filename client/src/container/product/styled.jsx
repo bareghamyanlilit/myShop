@@ -37,6 +37,7 @@ export const Product = styled.div`
 				img {
 					width: 50px;
 					height: 50px;
+					object-fit: contain;
 				}
 				span {
 					font-size: 28px;

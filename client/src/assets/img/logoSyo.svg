@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2021.5 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="8.26772in" height="11.6929in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 8267.72 11692.91"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str2 {stroke:#1F1B20;stroke-width:55.56;stroke-miterlimit:2.61313}
+    .str4 {stroke:#FEFEFE;stroke-width:111.11;stroke-miterlimit:2.61313}
+    .str0 {stroke:#1F1B20;stroke-width:111.11;stroke-miterlimit:2.61313}
+    .str1 {stroke:#1F1B20;stroke-width:6.94;stroke-miterlimit:2.61313}
+    .str3 {stroke:#2B2A29;stroke-width:3;stroke-miterlimit:2.61313}
+    .fil0 {fill:none}
+    .fil3 {fill:#FEFEFE}
+    .fil4 {fill:#2B2A29}
+    .fil2 {fill:#2B2A29}
+    .fil1 {fill:#1F1B20}
+   ]]>
+  </style>
+   <mask id="id0">
+  <radialGradient id="id1" gradientUnits="userSpaceOnUse" cx="2958.48" cy="4286.71" r="0" fx="2958.48" fy="4286.71">
+   <stop offset="0" style="stop-opacity:0; stop-color:white"/>
+   <stop offset="0.301961" style="stop-opacity:0.839216; stop-color:white"/>
+   <stop offset="0.419608" style="stop-opacity:0.74902; stop-color:white"/>
+   <stop offset="0.541176" style="stop-opacity:0.85098; stop-color:white"/>
+   <stop offset="0.658824" style="stop-opacity:0.768627; stop-color:white"/>
+   <stop offset="0.839216" style="stop-opacity:0.780392; stop-color:white"/>
+   <stop offset="0.956863" style="stop-opacity:0.890196; stop-color:white"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:white"/>
+  </radialGradient>
+    <rect style="fill:url(#id1)" x="2956.98" y="4285.21" width="947.89" height="947.89"/>
+   </mask>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <circle class="fil0 str0" cx="3430.92" cy="4759.16" r="886.83"/>
+  <rect class="fil1 str1" x="6781.51" y="3253.91" width="154.1" height="1537.91"/>
+  <rect class="fil1 str1" x="1820.34" y="3253.94" width="154.1" height="1566.17"/>
+  <rect class="fil1 str1" x="5563.18" y="3253.44" width="154.1" height="1546.15"/>
+  <path class="fil1 str1" d="M5804.44 3949.13l99.78 -106.8 710.37 899.72 -101.7 59.42c-13.81,-5.42 -28.64,-7.59 -43.43,-7.34l-665.03 -845z"/>
+  <polygon class="fil1 str1" points="5694.13,4179.67 5597.91,4059.36 6397.29,3254.72 6611.56,3254.24 "/>
+  <rect class="fil1 str1" x="4369.05" y="3253.73" width="154.1" height="1550.53"/>
+  <line class="fil0 str2" x1="3430.92" y1="4144.57" x2="3430.93" y2= "3298.69" />
+  <line class="fil0 str2" x1="3431" y1="6224" x2="3431.01" y2= "5378.11" />
+  <line class="fil0 str2" x1="6935.61" y1="4773.2" x2="4047.31" y2= "4773.2" />
+  <line class="fil0 str2" x1="2812.88" y1="4791.66" x2="1966.99" y2= "4791.65" />
+  <circle class="fil0 str0" cx="4919.56" cy="3730.93" r="435.3"/>
+  <rect class="fil1 str1" transform="matrix(1.22195E-14 -0.54045 0.756968 2.34835E-14 5018.33 3098.06)" width="285.13" height="1738.28"/>
+  <path class="fil2 str3" style="mask:url(#id0)" d="M3430.93 4286.71c260.93,0 472.44,211.52 472.44,472.45 0,260.93 -211.52,472.44 -472.44,472.44 -260.93,0 -472.45,-211.52 -472.45,-472.44 0,-260.93 211.52,-472.45 472.45,-472.45z"/>
+  <path class="fil3" d="M3605.01 4547.35c28.89,0 52.32,22.33 52.32,49.88 0,27.55 -23.43,49.88 -52.32,49.88 -28.89,0 -52.31,-22.33 -52.31,-49.88 0,-27.55 23.43,-49.88 52.31,-49.88z"/>
+  <circle class="fil4" cx="3433.66" cy="4759.16" r="139.22"/>
+  <ellipse class="fil3" cx="3513.46" cy="4618.65" rx="96.91" ry="89.35"/>
+  <circle class="fil0 str4" cx="3430.98" cy="4759.27" r="978.58"/>
+ </g>
+</svg>

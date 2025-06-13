@@ -25,6 +25,8 @@ mongoose
 
 app.use('/api/basket', require('./routes/basket'))
 
+app.use('/api/buy', require('./routes/buy'))
+
 app.use('/api/auth', require('./routes/auth'))
 
 app.use('/api/product', require('./routes/product'))

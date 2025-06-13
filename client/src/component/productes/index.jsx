@@ -66,6 +66,7 @@ import { useEffect, useState } from 'react'
 import { productApi } from '../../api/servicesApi'
 import { Counter, FilterDiv, MainDiv, Product, Products } from './styled'
 import { Link } from 'react-router-dom'
+// import { BiBasket } from 'react-icons/bi'
 export const ProductsPart = () => {
 	const { t } = useTranslation()
 	const [product, setProduct] = useState([])
@@ -78,6 +79,17 @@ export const ProductsPart = () => {
 		setProduct(response.data)
 		console.log(response.data);
 	}
+	const buy = async id => {
+		const token = localStorage.getItem('token')
+		if (!token) {
+			alert('You must be logged in')
+			return
+		}
+		console.log(token, id)
+		const response = await productApi.addToBuy(token, id)
+		console.log(response.data)
+	}
+
 	const addToBasket = async id => {
 		const token = localStorage.getItem('token')
 		if (!token) {
@@ -113,20 +125,7 @@ export const ProductsPart = () => {
 		setFiltered(newArr)
 	}
 
-	const [quantities, setQuantities] = useState(
-		Array(product.length).fill(0) // Initialize quantities to 0
-	)
 
-	const updateQuantity = (index, change) => {
-		setQuantities(prev => {
-			const newQuantities = [...prev]
-			newQuantities[index] = Math.max(
-				0,
-				Math.min(newQuantities[index] + change, 10)
-			)
-			return newQuantities
-		})
-	}
 	return (
 		<>
 			<MainDiv>
@@ -157,11 +156,12 @@ export const ProductsPart = () => {
 					{filtered.length > 0
 						? filtered.map((e, i) => {
 								return (
+									console.log(e),
 									<Product key={e._id}>
 										<Link
 											style={{ width: '100%' }}
-											to={`/product/${e.id}`}
-											state={e}
+											to={`/product/${e._id}`}
+											// state={e}
 										>
 											<img
 												src={`http://localhost:3001/uploads/${e.imageUrl}`}
@@ -175,26 +175,10 @@ export const ProductsPart = () => {
 													? e.name.substring(0, 18) + ' ...'
 													: e.name}
 											</p>
-											<p>
-												{t('Price')}: {e.price}
-											</p>
+											<p>{t('Price')}: {e.price}</p>
 											<div className='info'>
-												<Counter>
-													<button onClick={() => updateQuantity(i, -1)}>
-														-
-													</button>
-													<h1>{quantities[i]}</h1>
-													<button onClick={() => updateQuantity(i, 1)}>
-														+
-													</button>
-												</Counter>
-												<button className='like' onClick={() => addToBasket(i)}>
-													❤️
-												</button>
-												<button className='addBasket' onClick={() => addToBasket(e._id)}>
-													add to basket
-												</button>
-												
+												<button className='addBasket' onClick={() => addToBasket(e._id)}>Add to basket</button>
+												<button className='buy addBasket' onClick={() => buy(e._id)}>Buy</button>
 											</div>
 										</div>
 									</Product>
@@ -205,7 +189,7 @@ export const ProductsPart = () => {
 									<Product key={e._id}>
 										<Link
 											style={{ width: '100%' }}
-											to={`/product/${e.id}`}
+											to={`/product/${e._id}`}
 											state={e}
 										>
 											<img
@@ -220,25 +204,10 @@ export const ProductsPart = () => {
 													? e.name.substring(0, 18) + ' ...'
 													: e.name}
 											</p>
-											<p>
-												{t('Price')}: {e.price}
-											</p>
+											<p>{t('Price')}: {e.price}</p>
 											<div className='info'>
-												<Counter>
-													<button onClick={() => updateQuantity(i, -1)}>
-														-
-													</button>
-													<h1>{quantities[i]}</h1>
-													<button onClick={() => updateQuantity(i, 1)}>
-														+
-													</button>
-												</Counter>
-												<button className='like' onClick={() => addToBasket(i)}>
-													❤️
-												</button>
-												<button className='addBasket' onClick={() => addToBasket(e._id)}>
-													add to basket
-												</button>
+												<button className='addBasket' onClick={() => addToBasket(e._id)}>Add to basket</button>
+												<button className='buy addBasket' onClick={() => buy(e._id)}>Buy</button>
 											</div>
 										</div>
 									</Product>

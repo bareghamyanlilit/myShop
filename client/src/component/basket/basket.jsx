@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { productApi } from '../../api/servicesApi'
-import { MainDiv, Product, Products } from './styled'
+import { DeleteBtn, MainDiv, Product, Products } from './styled'
 
 export const Basket = () => {
 	const [product, setProduct] = useState([])
@@ -58,7 +58,7 @@ export const Basket = () => {
 
 	return (
 		<MainDiv>
-			<button onClick={deleteAllData}>DELETE ALL</button>
+			<DeleteBtn onClick={deleteAllData}>DELETE ALL</DeleteBtn>
 			<Products>
 				{product.length > 0 ? (
 					product.map(e => (
@@ -66,7 +66,6 @@ export const Basket = () => {
 							<img
 								src={`http://localhost:3001/uploads/${e.imageUrl}`}
 								alt={e.brand}
-								style={{ width: '200px' }}
 							/>
 							<p>Brand: {e.brand}</p>
 							<p>Name: {e.name}</p>

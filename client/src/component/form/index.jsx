@@ -33,6 +33,7 @@ export const MyForm = () => {
 			return
 		}
 		data.basket = []
+		data.buy = []
 		const result = users.slice()
 		result.push(data)
 		setUsers(result)

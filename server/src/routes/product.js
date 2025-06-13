@@ -6,43 +6,48 @@ const fs = require('fs')
 const authMiddleware = require('../middleware/authMiddleware')
 
 
-router.post('/',authMiddleware, async (req, res) => {
-	console.log(req.user)
+router.post('/', authMiddleware, async (req, res) => {
 	if (req.user.userId != 'admin') {
-		await req.status(403).json({ error: 'du admin ches' })
+		return res.status(403).json({ error: 'du admin ches' })
 	}
 	try {
-		console.log(req.files);
-		if (!req.files || !req.files.brandImg) {
-			return res.status(400).json({ message: 'Image file is required ',vay:req.files})
+		if (!req.files || !req.files.brandImg || !req.files.imageUrl) {
+			return res.status(400).json({ message: 'Բոլոր պատկերները պարտադիր են' })
 		}
+
 		const brandImage = req.files.brandImg
 		const brandUpdateImage = Date.now() + brandImage.name
 		const brandUploadPath = path.join(path.resolve(), '/uploads', brandUpdateImage)
-
 		await brandImage.mv(brandUploadPath)
-
-		if (!req.files || !req.files.imageUrl) {
-			return res.status(400).json({ message: 'Image file is required .............' })
-		}
 
 		const image = req.files.imageUrl
 		const updateImage = Date.now() + image.name
 		const uploadPath = path.join(path.resolve(), '/uploads', updateImage)
-
 		await image.mv(uploadPath)
+
+		const images=req.files
+		console.log(images);
+		images.forEach((e,i )=> {
+			path.join(path.resolve(), '/uploads', Date.now() + i + e.name)
+			return  Date.now() + i + e.name
+		});
+		console.log(images);
+		await images.mv(images)
+
 
 		const newProduct = new ProductModel({
 			brandImg: brandUpdateImage,
 			brand: req.body.brand,
 			name: req.body.name,
+			descr: req.body.descr,
 			price: req.body.price,
 			imageUrl: updateImage,
-			price: req.body.price,
-			// imgArr: req.body.imgArr,
-			// sizeArr: req.body.sizeArr,
-			gender: req.body.gender
-			
+			images:images,
+			gender: req.body.gender,
+			category: req.body.category,
+			stock: req.body.stock,
+			sizes: req.body.sizes,
+			code: req.body.code,
 		})
 
 		await newProduct.save()
@@ -51,6 +56,7 @@ router.post('/',authMiddleware, async (req, res) => {
 		res.status(500).json({ error: error.message })
 	}
 })
+
 router.get('/',async (req,res)=>{
 	try {
 		const products = await ProductModel.find()
@@ -61,21 +67,46 @@ router.get('/',async (req,res)=>{
 })
 
 
-router.put('/:id',authMiddleware, async (req, res) => {
-	console.log(req.user)
+router.put('/:id', authMiddleware, async (req, res) => {
 	if (req.user.userId != 'admin') {
-		await req.status(403).json({ error: 'du admin ches' })
+		return res.status(403).json({ error: 'du admin ches' })
 	}
 	try {
 		const { id } = req.params
-		const { brand,name, price,gender } = req.body
-		console.log(req.files);
-		const productEdit = await ProductModel.findByIdAndUpdate(id,{  brand,name, price,gender  })
-		res.status(200).send({ data: 'everything is ok you are edited the box' })
+		const updateFields = {
+			brand: req.body.brand,
+			name: req.body.name,
+			price: req.body.price,
+			gender: req.body.gender,
+			category: req.body.category,
+			stock: req.body.stock
+		}
+
+		// Handle image updates
+		if (req.files) {
+			if (req.files.imageUrl) {
+				const image = req.files.imageUrl
+				const updateImage = Date.now() + image.name
+				const uploadPath = path.join(path.resolve(), '/uploads', updateImage)
+				await image.mv(uploadPath)
+				updateFields.imageUrl = updateImage
+			}
+			if (req.files.brandImg) {
+				const brandImage = req.files.brandImg
+				const brandUpdateImage = Date.now() + brandImage.name
+				const brandUploadPath = path.join(path.resolve(), '/uploads', brandUpdateImage)
+				await brandImage.mv(brandUploadPath)
+				updateFields.brandImg = brandUpdateImage
+			}
+		}
+
+		await ProductModel.findByIdAndUpdate(id, updateFields)
+		res.status(200).json({ message: 'Product updated successfully' })
 	} catch (error) {
 		res.status(500).json({ error: error.message })
 	}
 })
+
 
 router.delete('/:id',authMiddleware, async (req, res) => {
 	console.log(req.user);

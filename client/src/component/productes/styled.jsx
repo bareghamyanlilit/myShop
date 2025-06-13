@@ -1,24 +1,44 @@
 import styled from 'styled-components'
 import { globalColor } from '../../assets/colors'
 export const MainDiv = styled.div`
-	padding-top: 100px;
+	/* padding-top: 100px; */
+	@media (max-width: 480px) {
+		padding-top: 0;
+	}
 `
 export const FilterDiv = styled.div`
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
+	/* flex-wrap: wrap; */
+	justify-content: space-between;
 	align-items: center;
-	padding: 20px 0;
+	padding: 20px 40px;
 	/* background: #f1f1f1; */
 	.filtertesak,
 	.filter {
+		width: max-content;
 		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
+		/* flex-wrap: wrap; */
 		align-items: center;
 		gap: 10px;
 		min-height: 100px;
 		padding: 20px 0;
+
+		@media (max-width: 480px) {
+			min-height: max-content;
+			padding: 10px 5px;
+		}
+	}
+	.filtertesak {
+		justify-content: center;
+		@media (max-width: 480px) {
+			justify-content: flex-start;
+		}
+	}
+	.filter {
+		justify-content: center;
+		@media (max-width: 480px) {
+			justify-content: space-between;
+		}
 	}
 
 	button {
@@ -26,9 +46,9 @@ export const FilterDiv = styled.div`
 		height: max-content;
 		padding: 15px 40px;
 		font-size: 20px;
-		border-radius: 50px;
+		border-radius: 5px;
 		border: none;
-		background: #2787a3;
+		background: ${globalColor.headerColor};
 		color: ${globalColor.txtColor};
 	}
 	@media (max-width: 998px) {
@@ -51,23 +71,37 @@ export const FilterDiv = styled.div`
 		border-radius: 5px;
 		background: ${globalColor.headerColor};
 		border: none;
-		border-bottom: 1px solid ${globalColor.txtColor};
+		/* border-bottom: 1px solid ${globalColor.txtColor}; */
 		color: ${globalColor.txtColor};
+
+		@media (max-width: 480px) {
+			font-size: 16px;
+			padding: 8px;
+		}
 	}
 	.filterPrice {
-		background: ${globalColor.blue};
 		width: max-content;
 		display: flex;
-		padding: 10px;
 		gap: 30px;
-		border-radius: 5px;
 		input {
+			background: ${globalColor.headerColor};
 			width: 100px;
 			font-size: 20px;
-			background: transparent;
+			padding: 8px;
+			border-radius: 5px;
+			/* background: transparent; */
 			border: none;
-			border-bottom: 1px solid ${globalColor.txtColor};
+			/* border-bottom: 1px solid ${globalColor.txtColor}; */
 			color: ${globalColor.txtColor};
+
+			@media (max-width: 480px) {
+				width: 60px;
+				font-size: 16px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			gap: 10px;
 		}
 	}
 `
@@ -106,35 +140,39 @@ export const Product = styled.div`
 	.txt {
 		position: absolute;
 		backdrop-filter: blur(10px);
-		bottom: -75px;
+		bottom: -67px;
 		width: 100%;
-		padding: 40px 15px;
+		padding: 20px 15px;
 		transition: 1s;
 		p {
 			font-family: cursive;
-			color: ${globalColor.txtColor};
-			text-shadow: 0px 2px 2px #000;
+			color: #fff;
+			text-shadow: 1px 1px 2px ${globalColor.blue};
+			/* text-shadow: 0px 2px 2px #000; */
 			padding: 10px 0;
-			font-size: 20px;
+			font-size: 26px;
 		}
 		.info {
 			display: flex;
 			align-items: center;
 			gap: 20px;
-			justify-content: flex-end;
-			.like {
-				font-size: 22px;
-				border: none;
-				background: transparent;
-			}
+			margin-top: 15px;
+			justify-content: space-between;
 			.addBasket {
 				cursor: pointer;
-				padding: 5px 10px;
+				padding: 10px 20px;
 				border: none;
 				color: ${globalColor.txtColor};
-				font-size: 18px;
+				font-size: 22px;
 				border-radius: 5px;
 				background: ${globalColor.headerColor};
+				@media (max-width: 480px) {
+					font-size: 16px;
+					padding: 5px;
+				}
+			}
+			.buy{
+				/* background: #014046; */
 			}
 		}
 	}
@@ -175,11 +213,11 @@ export const Product = styled.div`
 
 	@media (max-width: 480px) {
 		width: 49%;
-		height: 250px;
+		height: 230px;
 
 		.txt {
 			padding: 10px 5px;
-			bottom: -30px;
+			bottom: -60px;
 			p {
 				font-size: 14px;
 				padding: 5px 0;
@@ -195,7 +233,7 @@ export const Product = styled.div`
 			}
 		}
 		img {
-			height: 250px;
+			height: 200px;
 		}
 	}
 `

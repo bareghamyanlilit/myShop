@@ -1,3 +1,5 @@
+// ✅ Ամբողջական փոփոխված React կոմպոնենտ Admin Product ավելացման և խմբագրման էջի համար
+
 import { useEffect, useState } from 'react'
 import { createProduct, deleteProduct, getProduct, updateProduct } from '../../api/api'
 import {
@@ -22,31 +24,36 @@ const AddProduct = () => {
 		name: '',
 		price: '',
 		imageUrl: null,
+		images:[],
 		gender: '',
+		category: '',
+		stock: '',
 		
 	})
+
 	const [product, setProduct] = useState([])
-	const [editingProduct, setEditingProduct] = useState(null) // State Product edited
-	const [newImage, setNewImage] = useState(null) // State new image editing
-	const [brandNewImage, setBrandNewImage] = useState(null) // State new image editing
-  const [selectedOption, setSelectedOption] = useState('')
+	const [editingProduct, setEditingProduct] = useState(null)
+	const [newImage, setNewImage] = useState(null)
+	const [brandNewImage, setBrandNewImage] = useState(null)
+	const [images, setImages] = useState(null)
+
 	const nav = useNavigate()
 
 	useEffect(() => {
 		addData()
 	}, [])
+
 	const addData = async () => {
 		try {
 			const token = localStorage.getItem('adminToken')
 			const response = await getProduct(token)
-			console.log(response.status)
-			if (response.status == 401) {
+			// console.log(response.status);
+			if (response.status === 401) {
 				nav('/login')
 				return
 			}
 			setProduct(response.data)
 		} catch (error) {
-			console.log(88)
 			console.log(error)
 		}
 	}
@@ -58,7 +65,7 @@ const AddProduct = () => {
 			return
 		}
 		await deleteProduct(id, token)
-		addData() // Refresh after deletion
+		addData()
 	}
 
 	const handleChange = e => {
@@ -69,79 +76,106 @@ const AddProduct = () => {
 	const handleFileChange = e => {
 		setFormData({ ...formData, imageUrl: e.target.files[0] })
 	}
-	
+
 	const handleFileChangeBrand = e => {
 		setFormData({ ...formData, brandImg: e.target.files[0] })
 	}
 
+	const handleFileChangeImages = (event) => {
+		const files = Array.from(event.target.files);
+		setFormData({...formData,images:files})
+	  };
+
+
+	  
 	const handleSubmit = async e => {
+		e.preventDefault()
 		try {
 			const token = localStorage.getItem('adminToken')
-			e.preventDefault()
+			console.log(token);
 			const data = new FormData()
 			if (formData.brandImg) data.append('brandImg', formData.brandImg)
 			data.append('brand', formData.brand)
 			data.append('name', formData.name)
 			data.append('price', formData.price)
 			if (formData.imageUrl) data.append('imageUrl', formData.imageUrl)
-			data.append('gender', formData.gender)
-			// console.log(formData.brandImg)
-			// console.log(8,data,formData);
-			const res =await createProduct(data, token)
-			console.log(res.data);
-			addData() // Refresh  after adding
 
-			setFormData({ brandImg: null, name: '', brand: '', price: '',gender: '', imageUrl: null }) // Reset form
+			if (formData.images) data.append('images', formData.images)
+	
+			data.append('gender', formData.gender)
+			data.append('category', formData.category)
+			data.append('stock', formData.stock)
+			// console.log(token);
+			await createProduct(data, token)
+			addData()
+
+			setFormData({
+				brandImg: null,
+				brand: '',
+				name: '',
+				price: '',
+				imageUrl: null,
+				images: [],
+				gender: '',
+				category: '',
+				stock: '',
+			})
 		} catch (error) {
 			console.log(error)
 		}
 	}
 
 	const startEdit = product => {
-		setEditingProduct(product) // Set the Product to be edited
-		setNewImage(null) // Reset new image state
+		setEditingProduct(product)
+		setNewImage(null)
+		setBrandNewImage(null)
+		setImages([])
 	}
 
 	const handleEditChange = e => {
 		const { name, value } = e.target
-		setEditingProduct({ ...editingProduct, [name]: value }) // Update data
+		setEditingProduct({ ...editingProduct, [name]: value })
 	}
 
 	const handleEditFileChange = e => {
-		setNewImage(e.target.files[0]) // Update new image
-	}
-	const handleEditFileChangeBrand = e => {
-		setBrandNewImage(e.target.files[0]) // Update new image
+		setNewImage(e.target.files[0])
 	}
 
+	const handleEditFileChangeBrand = e => {
+		setBrandNewImage(e.target.files[0])
+	}
+
+	const handleEditFileChangeImages= e => {
+		setImages(e.target.files)
+	}
 	const handleEditSubmit = async e => {
 		e.preventDefault()
 		try {
 			const token = localStorage.getItem('adminToken')
 			const data = new FormData()
-
 			data.append('brandImg', brandNewImage)
 			data.append('brand', editingProduct.brand)
 			data.append('name', editingProduct.name)
 			data.append('price', editingProduct.price)
 			data.append('imageUrl', newImage)
+			data.append('images', images)
 			data.append('gender', editingProduct.gender)
-			console.log(brandNewImage,newImage)
+			data.append('category', editingProduct.category)
+			data.append('stock', editingProduct.stock)
 
 			await updateProduct(editingProduct._id, data, token)
-
-			addData() // Refresh after editing
-			setEditingProduct(null) // Close edit form
+			addData()
+			setEditingProduct(null)
 		} catch (error) {
 			console.error('Error updating data:', error)
 		}
 	}
 
 	const items = [{ name: 'Products', path: '/' }]
-	const options = [
-			{ value: 'Man', label: 'Man' },
-			{ value: 'Woman', label: 'Woman' },
-			{ value: 'Baby', label: 'Baby' },
+	const genderOptions = [
+		{ value: 'Man', label: 'Man' },
+		{ value: 'Woman', label: 'Woman' },
+		{ value: 'Baby', label: 'Baby' },
 	]
 	return (
 		<>
@@ -163,70 +197,45 @@ const AddProduct = () => {
 						</div>
 						<div>
 							<Label>Brand:</Label>
-							<Input
-								type='text'
-								name='brand'
-								value={formData.brand}
-								onChange={handleChange}
-								required
-							/>
+							<Input type='text' name='brand' value={formData.brand} onChange={handleChange} required />
 						</div>
 						<div>
 							<Label>Name:</Label>
-							<Input
-								type='text'
-								name='name'
-								value={formData.name}
-								onChange={handleChange}
-								required
-							/>
+							<Input type='text' name='name' value={formData.name} onChange={handleChange} required />
 						</div>
 						<div>
 							<Label>Price:</Label>
-							<Input
-								type='number'
-								name='price'
-								value={formData.price}
-								onChange={handleChange}
-								required
-							/>
+							<Input type='number' name='price' value={formData.price} onChange={handleChange} required />
 						</div>
 						<div>
 							<Label>Gender:</Label>
-							{/* <Input
-								type='text'
-								name='gender'
-								value={formData.gender}
-								onChange={handleChange}
-								required
-							/> */}
-							<select
-								name='gender' // Match the field name in the state
-								value={formData.gender} // Bind to the gender field in the state
-								onChange={handleChange} // Update state on change
-								required
-								>
-								<option value='' disabled>Select a gender</option> {/* Default option */}
-								{options.map((option) => (
-									<option key={option.value} value={option.value}>
-									{option.label}
-									</option>
+							<select name='gender' value={formData.gender} onChange={handleChange} required>
+								<option value='' disabled>Select gender</option>
+								{genderOptions.map(option => (
+									<option key={option.value} value={option.value}>{option.label}</option>
 								))}
 							</select>
-							{/* <select>
-								<option value='option1'>Option 1</option>
-								<option value='option2'>Option 2</option>
-								<option value='option3'>Option 3</option>
-							</select> */}
+						</div>
+						<div>
+							<Label>Category:</Label>
+							<Input type='text' name='category' value={formData.category} onChange={handleChange} required />
+						</div>
+						<div>
+							<Label>Stock:</Label>
+							<Input type='number' name='stock' value={formData.stock} onChange={handleChange} required />
 						</div>
 						<div>
 							<Label>Image:</Label>
 							<Input type='file' onChange={handleFileChange} />
 						</div>
+						<div>
+							<Label>Product Images:</Label>
+							<Input type="file" multiple onChange={handleFileChangeImages} />
+						</div>
 						<Button type='submit'>Add Product</Button>
 					</Form>
 
-					{editingProduct && ( // Render the edit form if a Product is being edited
+					{editingProduct && (
 						<Form onSubmit={handleEditSubmit}>
 							<h3>Edit Product</h3>
 							<div>
@@ -234,71 +243,63 @@ const AddProduct = () => {
 								<Input type='file' onChange={handleEditFileChangeBrand} />
 							</div>
 							<div>
-								<Label>Name:</Label>
-								<Input
-									type='text'
-									name='name'
-									value={editingProduct.name}
-									onChange={handleEditChange}
-									required
-								/>
+								<Label>Brand:</Label>
+								<Input type='text' name='brand' value={editingProduct.brand} onChange={handleEditChange} required />
 							</div>
 							<div>
-								<Label>Brand:</Label>
-								<Input
-									type='text'
-									name='brand'
-									value={editingProduct.brand}
-									onChange={handleEditChange}
-									required
-								/>
+								<Label>Name:</Label>
+								<Input type='text' name='name' value={editingProduct.name} onChange={handleEditChange} required />
 							</div>
 							<div>
 								<Label>Price:</Label>
-								<Input
-									type='number'
-									name='price'
-									value={editingProduct.price}
-									onChange={handleEditChange}
-									required
-								/>
+								<Input type='number' name='price' value={editingProduct.price} onChange={handleEditChange} required />
 							</div>
 							<div>
 								<Label>Gender:</Label>
-								<Input
-									type='text'
-									name='gender'
-									value={editingProduct.gender}
-									onChange={handleEditChange}
-									required
-								/>
+								<Input type='text' name='gender' value={editingProduct.gender} onChange={handleEditChange} required />
+							</div>
+							<div>
+								<Label>Category:</Label>
+								<Input type='text' name='category' value={editingProduct.category} onChange={handleEditChange} required />
+							</div>
+							<div>
+								<Label>Stock:</Label>
+								<Input type='number' name='stock' value={editingProduct.stock} onChange={handleEditChange} required />
 							</div>
 							<div>
 								<Label>Image:</Label>
 								<Input type='file' onChange={handleEditFileChange} />
 							</div>
+							<div>
+								<Label>Product Images:</Label>
+								<Input type="file" multiple onChange={handleEditFileChangeImages} />
+							</div>
 							<Button type='submit'>Save Changes</Button>
-							<Button type='button' onClick={() => setEditingProduct(null)}>
-								Cancel
-							</Button>
+							<Button type='button' onClick={() => setEditingProduct(null)}>Cancel</Button>
 						</Form>
 					)}
 
 					<Products>
 						{product.map((product, index) => (
 							<Product key={index}>
-								<img
-									src={`http://localhost:3001/uploads/${product.brandImg}`}
-									alt={product.brand}
-								/>
+								<img src={`http://localhost:3001/uploads/${product.brandImg}`} alt={product.brand} />
 								<p>Brand: {product.brand}</p>
 								<p>Name: {product.name}</p>
 								<p>Price: {product.price}</p>
 								<p>Gender: {product.gender}</p>
-								<img
-									src={`http://localhost:3001/uploads/${product.imageUrl}`}
-									alt={product.name}
-								/>
+								<p>Category: {product.category}</p>
+								<p>Stock: {product.stock}</p>
+								<img src={`http://localhost:3001/uploads/${product.imageUrl}`} alt={product.name} />
+								<div className='images'>
+									{product.images && product.images.map((e,i)=>{
+										return(
+											<div key={i} >
+												<p>i</p>
+												<img src={`http://localhost:3001/uploads/${e}`} alt={e.name} />
+											</div>
+										)
+									})}
+								</div>
 								<div className='buttons'>
 									<button onClick={() => deleteData(product._id)}>X</button>
 									<button onClick={() => startEdit(product)}>Edit</button>

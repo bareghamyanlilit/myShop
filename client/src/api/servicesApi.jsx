@@ -29,4 +29,20 @@ export const productApi = {
             Authorization: `Bearer ${token}`,
         },
     }),
+    
+    addToBuy: (token, id) => axiosInstance.post(`/buy/${id}`, {}, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }),
+    getBuy: (token) => axiosInstance.get(`/buy`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }),
+    deleteBuy: (id, token) => axiosInstance.delete(`/buy/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }),
 };

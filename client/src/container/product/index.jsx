@@ -7,9 +7,7 @@ export const ProductPage=()=>{
 	const location = useLocation()
     const nav = useNavigate()
 	const [index, setIndex] = useState('main')
-	// console.log(location?.state?.firmaImg)
-	const loc = location?.state
-	console.log(loc);
+	console.log(location?.state, location?.state?.brandImg)
 	const prev=()=>{
 		nav('/')
 	}
@@ -26,16 +24,19 @@ export const ProductPage=()=>{
 					<div className='left'>
 						<div className='name'>
 							<div className='firma'>
-								<img src={loc?.firmaImg} />
-								<span>{loc?.firma}</span>
+								<img
+									src={`http://localhost:3001/uploads/${location?.state?.brandImg}`}
+								/>
+								<span>{location?.state?.brand}</span>
 							</div>
-							<h1>{loc?.name}</h1>
+							<h1>{location?.state?.name}</h1>
 						</div>
 						<Img
 							src={
-								index == 'main'
-									? loc?.src
-									: loc?.info?.imgArr[index]
+								`http://localhost:3001/uploads/${location?.state?.imageUrl}`
+								// index == 'main'
+								// 	? loc?.src
+								// 	: loc?.info?.imgArr[index]
 							}
 						/>
 					</div>
@@ -43,7 +44,7 @@ export const ProductPage=()=>{
 						<div className='size'>
 							<h2>SIZE</h2>
 							<Sizes>
-								{loc?.info?.sizeArr?.map((e, i) => (
+								{location?.state?.info?.sizeArr?.map((e, i) => (
 									<SizeItem key={e + i}>{e}</SizeItem>
 								))}
 							</Sizes>
@@ -57,14 +58,14 @@ export const ProductPage=()=>{
 						</TxtInfo> */}
 
 						<TxtItem>
-							<h3>{loc?.price} $</h3>
+							<h3>{location?.state?.price} $</h3>
 						</TxtItem>
-						<Button onClick={addCard} state={loc}>
+						<Button onClick={addCard} state={location?.state}>
 							Add Card
 						</Button>
 
 						<Images>
-							{loc?.info?.imgArr.map((e, i) => (
+							{location?.state?.info?.imgArr.map((e, i) => (
 								<img key={i} src={e} onClick={() => setIndex(i)} />
 							))}
 						</Images>

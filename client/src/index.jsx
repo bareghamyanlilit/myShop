@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { HomePage, LogIn, ContactForm, AboutPage,MyBasketPage,ProductPage, Account } from './container'
+import { HomePage, LogIn, ContactForm, AboutPage,MyBuyPage,ProductPage, Account } from './container'
 import { GlobalStyles } from './styled'
 import i18n from 'i18next'
 import translationEN from './languages/en/translation.json'
@@ -49,15 +49,17 @@ export const MyProject=()=>{
 				<Route path='/' element={<HomePage  setBasketCount={setBasketCount}/>} />
 				<Route path='/product/:id' element={<ProductPage />} />
 				<Route path='/about' element={<AboutPage />} />
-				<Route path='/account' element={<Account />} />
+				{/* <Route path='/account' element={<Account />} /> */}
 				<Route path='/contact' element={<ContactForm />} />
-				<Route path='/shop' element={<MyBasketPage  setBasketCount={setBasketCount}/>} />
+				<Route path='/shop' element={<MyBuyPage  setBasketCount={setBasketCount}/>} />
                 <Route path="/sign-up" element={<SignUp />} />
                 <Route path="/log-in" element={<LogIn />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/card" element={<AddCard />} />
                 <Route path="/products" element={<ProductsPart />} />
                 <Route path="/basket" element={<Basket />} />
+
+				
 			</Routes>
 			<MyFooter />
 		</Router>

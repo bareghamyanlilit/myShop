@@ -67,7 +67,7 @@ export const MenuLang = () => {
 								onClick={() => handleSelectLang(e.code, e.src)}
 							>
 								<Flag src={e.src} />
-								<span style={{'font-size': '20px'}}>{e.code}</span>
+								<span style={{'fontSize': '20px'}}>{e.code}</span>
 							</MenuItem>
 						)
 					})

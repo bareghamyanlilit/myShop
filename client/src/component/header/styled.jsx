@@ -7,11 +7,12 @@ export const Header = styled.header`
 	z-index: 3;
 	top: 0;
 	width: 100%;
-	height: 60px;
+	height: 80px;
 	padding: 0px 80px;
 	background: ${globalColor.headerColor};
 	display: flex;
 	justify-content: space-between;
+	border-bottom: 10px solid ${globalColor.color};
 	@media (max-width: 480px) {
 		padding: 0 20px;
 		height: 50px;
@@ -19,8 +20,9 @@ export const Header = styled.header`
 `
 export const LeftHeader = styled.div`
 	display: flex;
-	gap: 50px;
+	gap: 20px;
 	align-items: center;
+	/* padding: 20px 0; */
 
 	@media (max-width: 480px) {
 		gap: 20px;
@@ -56,13 +58,13 @@ export const MenuItems = styled.ul`
 export const MenueLink = styled(Link)`
 	color: ${globalColor.txtColor};
 	text-decoration: none;
-	height: 60px;
+	height: 80px;
 	padding: 0 15px;
 	width: max-content;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 16px;
+	font-size: 18px;
 	background-color: ${({ $active }) =>
 		$active ? `${globalColor.color}` : 'none'};
 	&:hover {
@@ -75,7 +77,7 @@ export const MenueLink = styled(Link)`
 export const IconDiv = styled(Link)`
 	color: ${globalColor.txtColor};
 	text-decoration: none;
-	height: 60px;
+	height: 80px;
 	width: 100px;
 	font-size: 28px;
 	display: none;
