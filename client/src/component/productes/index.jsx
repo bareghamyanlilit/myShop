@@ -157,59 +157,50 @@ export const ProductsPart = () => {
 						? filtered.map((e, i) => {
 								return (
 									console.log(e),
-									<Product key={e._id}>
-										<Link
-											style={{ width: '100%' }}
-											to={`/product/${e._id}`}
-											// state={e}
-										>
-											<img
-												src={`http://localhost:3001/uploads/${e.imageUrl}`}
-												gender={e.gender}
-											/>
-										</Link>
-
-										<div className='txt'>
-											<p>
-												{e.name && e.name.split('').length > 20
-													? e.name.substring(0, 18) + ' ...'
-													: e.name}
-											</p>
-											<p>{t('Price')}: {e.price}</p>
-											<div className='info'>
-												<button className='addBasket' onClick={() => addToBasket(e._id)}>Add to basket</button>
-												<button className='buy addBasket' onClick={() => buy(e._id)}>Buy</button>
+									<Product key={e._id}>\
+										<img
+											src={`http://localhost:3001/uploads/${e.imageUrl}`}
+											gender={e.gender}
+										/>
+										<Link style={{ width: '100%' }} to={`/product/${e._id}`} state={e} >
+											<div className='txt'>
+												<p>
+													{e.name && e.name.split('').length > 20
+														? e.name.substring(0, 18) + ' ...'
+														: e.name}
+												</p>
+												<p>{t('Price')}: {e.price}</p>
+												<div className='info'>
+													<button className='addBasket' onClick={() => addToBasket(e._id)}>Add to basket</button>
+													<button className='buy addBasket' onClick={() => buy(e._id)}>Buy</button>
+												</div>
 											</div>
-										</div>
+										</Link>
 									</Product>
 								)
 						  })
 						: product.map((e, i) => {
 								return (
 									<Product key={e._id}>
-										<Link
-											style={{ width: '100%' }}
-											to={`/product/${e._id}`}
-											state={e}
-										>
-											<img
-												src={`http://localhost:3001/uploads/${e.imageUrl}`}
-												gender={e.gender}
-											/>
-										</Link>
+										<img
+											src={`http://localhost:3001/uploads/${e.imageUrl}`}
+											gender={e.gender}
+										/>
 
-										<div className='txt'>
-											<p>
-												{e.name && e.name.split('').length > 20
-													? e.name.substring(0, 18) + ' ...'
-													: e.name}
-											</p>
-											<p>{t('Price')}: {e.price}</p>
-											<div className='info'>
-												<button className='addBasket' onClick={() => addToBasket(e._id)}>Add to basket</button>
-												<button className='buy addBasket' onClick={() => buy(e._id)}>Buy</button>
+										<Link style={{ width: '100%' }} to={`/product/${e._id}`} state={e} >
+											<div className='txt'>
+												<p>
+													{e.name && e.name.split('').length > 20
+														? e.name.substring(0, 18) + ' ...'
+														: e.name}
+												</p>
+												<p>{t('Price')}: {e.price}</p>
+												<div className='info'>
+													<button className='addBasket' onClick={() => addToBasket(e._id)}>Add to basket</button>
+													<button className='buy addBasket' onClick={() => buy(e._id)}>Buy</button>
+												</div>
 											</div>
-										</div>
+										</Link>
 									</Product>
 								)
 						  })}

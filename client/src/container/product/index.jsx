@@ -31,14 +31,14 @@ export const ProductPage=()=>{
 							</div>
 							<h1>{location?.state?.name}</h1>
 						</div>
-						<Img
-							src={
-								`http://localhost:3001/uploads/${location?.state?.imageUrl}`
-								// index == 'main'
-								// 	? loc?.src
-								// 	: loc?.info?.imgArr[index]
-							}
-						/>
+						<div className='img'>
+							<img className='mainImg'
+								src={
+									`http://localhost:3001/uploads/${index == 'main' ? location?.state?.imageUrl : location?.state?.images[index]}`
+								}
+								
+							/>
+						</div>
 					</div>
 					<Right>
 						<div className='size'>
@@ -65,8 +65,8 @@ export const ProductPage=()=>{
 						</Button>
 
 						<Images>
-							{location?.state?.info?.imgArr.map((e, i) => (
-								<img key={i} src={e} onClick={() => setIndex(i)} />
+							{location?.state?.images.map((e, i) => (
+								<img key={i} src={`http://localhost:3001/uploads/${e}`} onClick={() => setIndex(i)} />
 							))}
 						</Images>
 					</Right>

@@ -34,6 +34,7 @@ export const Product = styled.div`
 				display: flex;
 				align-items: center;
 				color: ${globalColor.blue};
+				justify-content: center;
 				img {
 					width: 50px;
 					height: 50px;
@@ -44,8 +45,24 @@ export const Product = styled.div`
 				}
 			}
 			h1 {
+				text-align: center;
 				color: ${globalColor.blue};
 				font-size: calc(36px + 1.5vw);
+			}
+		}
+		
+		.img{
+			width: 40vw;
+			height: 100%;
+			overflow: hidden;
+			.mainImg{
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				&:hover {
+					transform: scale(1.05);
+					transition: transform 0.3s ease;
+				}
 			}
 		}
 	}
@@ -92,6 +109,8 @@ export const Images = styled.div`
 		width: 80px;
 		height: 120px;
 		border-radius: 5px;
+		object-fit: cover;
+		cursor: pointer;
 	}
 `
 

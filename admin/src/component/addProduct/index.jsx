@@ -98,7 +98,12 @@ const AddProduct = () => {
 			data.append('price', formData.price)
 			if (formData.imageUrl) data.append('imageUrl', formData.imageUrl)
 			console.log(1);
-			// if (formData.images) data.append('images', formData.images)
+			if (formData.images) {
+				formData.images.forEach(file => {
+					data.append('images', file)
+				}); 
+			}
+
 			console.log(formData);
 			console.log(2);
 	
@@ -150,20 +155,22 @@ const AddProduct = () => {
 		setBrandNewImage(e.target.files[0])
 	}
 
-	// const handleEditFileChangeImages= e => {
-	// 	setImages(e.target.files)
-	// }
+	const handleEditFileChangeImages= e => {
+		setImages(e.target.files)
+	}
 	const handleEditSubmit = async e => {
 		e.preventDefault()
 		try {
 			const token = localStorage.getItem('adminToken')
 			const data = new FormData()
-			data.append('brandImg', brandNewImage)
+			if(brandNewImage) data.append('brandImg', brandNewImage)
 			data.append('brand', editingProduct.brand)
 			data.append('name', editingProduct.name)
 			data.append('price', editingProduct.price)
-			data.append('imageUrl', newImage)
-			data.append('images', images)
+			if(newImage) data.append('imageUrl', newImage)
+			if(images && images.length){
+				images.forEach(file => data.append('images', file))
+			} 
 			data.append('gender', editingProduct.gender)
 			data.append('category', editingProduct.category)
 			data.append('stock', editingProduct.stock)
@@ -233,10 +240,10 @@ const AddProduct = () => {
 							<Label>Image:</Label>
 							<Input type='file' onChange={handleFileChange} />
 						</div>
-						{/* <div>
+						<div>
 							<Label>Product Images:</Label>
 							<Input type="file" multiple onChange={handleFileChangeImages} />
-						</div> */}
+						</div>
 						<Button type='submit'>Add Product</Button>
 					</Form>
 
@@ -295,16 +302,15 @@ const AddProduct = () => {
 								<p>Category: {product.category}</p>
 								<p>Stock: {product.stock}</p>
 								<img src={`http://localhost:3001/uploads/${product.imageUrl}`} alt={product.name} />
-								{/* <div className='images'>
+								<div className='images'>
 									{product.images && product.images.map((e,i)=>{
 										return(
 											<div key={i} >
-												<p>i</p>
 												<img src={`http://localhost:3001/uploads/${e}`} alt={e.name} />
 											</div>
 										)
 									})}
-								</div> */}
+								</div>
 								<div className='buttons'>
 									<button onClick={() => deleteData(product._id)}>X</button>
 									<button onClick={() => startEdit(product)}>Edit</button>

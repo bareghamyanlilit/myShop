@@ -107,12 +107,12 @@ export const FilterDiv = styled.div`
 `
 
 export const Products = styled.div`
-	padding: 0 20px;
-	width: 100%;
+	/* padding: 0 20px; */
+	width: 100vw;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
-	gap: 20px;
+	/* gap: 20px; */
 
 	@media (max-width: 768px) {
 		gap: 10px;
@@ -128,23 +128,26 @@ export const Products = styled.div`
 export const Product = styled.div`
 	position: relative;
 	overflow: hidden;
-	width: 350px;
-	height: 450px;
+	width: 50vw;
+	height: 650px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: start;
-	gap: 20px;
+	/* gap: 20px; */
 	color: ${globalColor.txtColor};
 	/* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
 	.txt {
 		position: absolute;
-		backdrop-filter: blur(10px);
-		bottom: -67px;
+		/* backdrop-filter: none; */
+		bottom: -250px;
 		width: 100%;
 		padding: 20px 15px;
+		align-content: center;
 		transition: 1s;
+		cursor: pointer;
 		p {
+			text-align: center;
 			font-family: cursive;
 			color: #fff;
 			text-shadow: 1px 1px 2px ${globalColor.blue};
@@ -157,7 +160,7 @@ export const Product = styled.div`
 			align-items: center;
 			gap: 20px;
 			margin-top: 15px;
-			justify-content: space-between;
+			justify-content: center;
 			.addBasket {
 				cursor: pointer;
 				padding: 10px 20px;
@@ -179,15 +182,18 @@ export const Product = styled.div`
 	img {
 		transition: 1s;
 		width: 100%;
-		height: 450px;
+		height: 650px;
 		object-fit: cover;
+		filter: grayscale(1);
 	}
 	&:hover img {
 		scale: 1.5;
+		filter: none;
+		rotate: 5deg;
 		/* display: grid; */
 	}
 	&:hover .txt {
-		bottom: 0px;
+		top: 0px;
 		/* display: grid; */
 	}
 	@media (max-width: 1200px) {

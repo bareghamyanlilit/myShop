@@ -24,8 +24,18 @@ router.post('/', authMiddleware, async (req, res) => {
 		const updateImage = Date.now() + image.name
 		const uploadPath = path.join(path.resolve(), '/uploads', updateImage)
 		await image.mv(uploadPath)
-
-		// const images=req.files
+		
+		const images=req.files.images
+		const savedNewImages = []
+		if(image){
+			const arr = Array.isArray(images) ? images : [images]
+			for (const file of arr) {
+				const fileName = Date.now()+'-' + file.name
+				const dest = path.join(path.resolve(), '/uploads', fileName)
+				await file.mv(dest)
+				savedNewImages.push(fileName)
+			}
+		}
 		// console.log(images,"\n\n\n");
 		// images && images.length>0 && images.forEach((e,i )=> {
 		// 	path.join(path.resolve(), '/uploads', Date.now() + i + e.name)
@@ -42,7 +52,7 @@ router.post('/', authMiddleware, async (req, res) => {
 			descr: req.body.descr,
 			price: req.body.price,
 			imageUrl: updateImage,
-			// images:images,
+			images:savedNewImages,
 			gender: req.body.gender,
 			category: req.body.category,
 			stock: req.body.stock,

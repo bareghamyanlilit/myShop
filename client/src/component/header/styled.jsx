@@ -13,6 +13,7 @@ export const Header = styled.header`
 	display: flex;
 	justify-content: space-between;
 	border-bottom: 10px solid ${globalColor.color};
+	box-sizing: border-box;
 	@media (max-width: 480px) {
 		padding: 0 20px;
 		height: 50px;
