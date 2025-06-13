@@ -24,7 +24,7 @@ const AddProduct = () => {
 		name: '',
 		price: '',
 		imageUrl: null,
-		images:[],
+		// images:[],
 		gender: '',
 		category: '',
 		stock: '',
@@ -35,7 +35,7 @@ const AddProduct = () => {
 	const [editingProduct, setEditingProduct] = useState(null)
 	const [newImage, setNewImage] = useState(null)
 	const [brandNewImage, setBrandNewImage] = useState(null)
-	const [images, setImages] = useState(null)
+	// const [images, setImages] = useState(null)
 
 	const nav = useNavigate()
 
@@ -99,15 +99,22 @@ const AddProduct = () => {
 			data.append('name', formData.name)
 			data.append('price', formData.price)
 			if (formData.imageUrl) data.append('imageUrl', formData.imageUrl)
-
-			if (formData.images) data.append('images', formData.images)
+			console.log(1);
+			// if (formData.images) data.append('images', formData.images)
+			console.log(formData);
+			console.log(2);
 	
 			data.append('gender', formData.gender)
+			console.log(3);
 			data.append('category', formData.category)
+			console.log(4);
 			data.append('stock', formData.stock)
+			console.log(5);
 			// console.log(token);
 			await createProduct(data, token)
+			console.log(6);
 			addData()
+			console.log(7);
 
 			setFormData({
 				brandImg: null,
@@ -115,7 +122,7 @@ const AddProduct = () => {
 				name: '',
 				price: '',
 				imageUrl: null,
-				images: [],
+				// images: [],
 				gender: '',
 				category: '',
 				stock: '',
@@ -145,9 +152,9 @@ const AddProduct = () => {
 		setBrandNewImage(e.target.files[0])
 	}
 
-	const handleEditFileChangeImages= e => {
-		setImages(e.target.files)
-	}
+	// const handleEditFileChangeImages= e => {
+	// 	setImages(e.target.files)
+	// }
 	const handleEditSubmit = async e => {
 		e.preventDefault()
 		try {
@@ -228,10 +235,10 @@ const AddProduct = () => {
 							<Label>Image:</Label>
 							<Input type='file' onChange={handleFileChange} />
 						</div>
-						<div>
+						{/* <div>
 							<Label>Product Images:</Label>
 							<Input type="file" multiple onChange={handleFileChangeImages} />
-						</div>
+						</div> */}
 						<Button type='submit'>Add Product</Button>
 					</Form>
 
@@ -290,7 +297,7 @@ const AddProduct = () => {
 								<p>Category: {product.category}</p>
 								<p>Stock: {product.stock}</p>
 								<img src={`http://localhost:3001/uploads/${product.imageUrl}`} alt={product.name} />
-								<div className='images'>
+								{/* <div className='images'>
 									{product.images && product.images.map((e,i)=>{
 										return(
 											<div key={i} >
@@ -299,7 +306,7 @@ const AddProduct = () => {
 											</div>
 										)
 									})}
-								</div>
+								</div> */}
 								<div className='buttons'>
 									<button onClick={() => deleteData(product._id)}>X</button>
 									<button onClick={() => startEdit(product)}>Edit</button>

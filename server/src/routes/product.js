@@ -25,14 +25,14 @@ router.post('/', authMiddleware, async (req, res) => {
 		const uploadPath = path.join(path.resolve(), '/uploads', updateImage)
 		await image.mv(uploadPath)
 
-		const images=req.files
-		console.log(images);
-		images.forEach((e,i )=> {
-			path.join(path.resolve(), '/uploads', Date.now() + i + e.name)
-			return  Date.now() + i + e.name
-		});
-		console.log(images);
-		await images.mv(images)
+		// const images=req.files
+		// console.log(images,"\n\n\n");
+		// images && images.length>0 && images.forEach((e,i )=> {
+		// 	path.join(path.resolve(), '/uploads', Date.now() + i + e.name)
+		// 	return  Date.now() + i + e.name
+		// })
+		// // console.log(images);
+		// await image.mv(images)
 
 
 		const newProduct = new ProductModel({
@@ -42,7 +42,7 @@ router.post('/', authMiddleware, async (req, res) => {
 			descr: req.body.descr,
 			price: req.body.price,
 			imageUrl: updateImage,
-			images:images,
+			// images:images,
 			gender: req.body.gender,
 			category: req.body.category,
 			stock: req.body.stock,
@@ -53,7 +53,7 @@ router.post('/', authMiddleware, async (req, res) => {
 		await newProduct.save()
 		res.status(201).json(newProduct)
 	} catch (error) {
-		res.status(500).json({ error: error.message })
+		res.status(500).json({ error: error.message})
 	}
 })
 

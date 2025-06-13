@@ -2,7 +2,6 @@ require('dotenv').config()
 const PORT = 3001
 const mongoose = require('mongoose')
 const url = 'mongodb://localhost:27017/auth'
-const cors = require('cors')
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
@@ -17,6 +16,7 @@ app.use(fileUpload())
 app.use('/uploads', express.static(uploadPath))
 
 app.use(bodyParser.json())
+const cors = require('cors')
 app.use(cors())
 mongoose
 	.connect(url)
